@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="five_percent">0.5dp</dimen>
+    <dimen name="one">1dp</dimen>
+    <dimen name="two">2dp</dimen>
+    <dimen name="five">5dp</dimen>
+    <dimen name="ten">10dp</dimen>
+    <dimen name="twelve">12sp</dimen>
+    <dimen name="thirteen">13sp</dimen>
+    <dimen name="fourteen">14dp</dimen>
+    <dimen name="fifteen">15dp</dimen>
+    <dimen name="sixteen">16sp</dimen>
+    <dimen name="eighteen">18sp</dimen>
+    <dimen name="twenty">20dp</dimen>
+    <dimen name="twenty_five">25dp</dimen>
+    <dimen name="forty">40dp</dimen>
+    <dimen name="forty_five">45dp</dimen>
+    <dimen name="fifty">50dp</dimen>
+</resources>
