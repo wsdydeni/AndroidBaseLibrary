@@ -10,7 +10,7 @@ import android.widget.FrameLayout
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.wsdydeni.baselib.R
+import wsdydeni.library.android.R
 
 
 fun Activity.setLightNavigationBar(isLightingColor: Boolean) {

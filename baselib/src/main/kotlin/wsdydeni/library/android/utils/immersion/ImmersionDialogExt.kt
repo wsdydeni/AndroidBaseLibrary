@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import com.wsdydeni.baselib.R
+import wsdydeni.library.android.R
 
 
 // https://juejin.cn/post/7075578574362640421#heading-18

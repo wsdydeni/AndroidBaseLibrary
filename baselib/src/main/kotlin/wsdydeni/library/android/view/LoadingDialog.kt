@@ -5,9 +5,9 @@ import android.content.Context
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
-import com.wsdydeni.baselib.R
-import com.wsdydeni.baselib.databinding.DialogLoadingBinding
 import kotlinx.coroutines.Job
+import wsdydeni.library.android.R
+import wsdydeni.library.android.databinding.DialogLoadingBinding
 
 
 class LoadingDialog(context: Context) : Dialog(context, R.style.TransparentDialog) {
