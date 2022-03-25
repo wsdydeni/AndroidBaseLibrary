@@ -1,6 +1,5 @@
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
-apply plugin: "maven-publish"
 
 android {
     compileSdk 30
@@ -29,10 +28,6 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
-
-        // 移除试验性和预览的 Api 警告
-        freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.FlowPreview"
     }
 
     viewBinding {
@@ -56,18 +51,4 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.3.2")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-}
-
-
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = 'wsdydeni.library.base'
-                artifactId = 'Android-BaseLibrary'
-                version = '1.0.0'
-            }
-        }
-    }
 }
