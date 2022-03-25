@@ -6,6 +6,7 @@ android {
     compileSdk 30
 
     defaultConfig {
+        //noinspection OldTargetApi
         targetSdkVersion 30
         minSdkVersion 21
         version  "1.0.0"
