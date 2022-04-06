@@ -79,11 +79,11 @@ open class BaseActivity : AppCompatActivity {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.effect.collect {
                     when(it) {
-                        is wsdydeni.library.android.base.ToastEffect ->
+                        is ToastEffect ->
                             Toast.makeText(this@BaseActivity, it.text, Toast.LENGTH_SHORT).show()
-                        is wsdydeni.library.android.base.ToastDebugEffect ->
+                        is ToastDebugEffect ->
                             Toast.makeText(this@BaseActivity, it.text, Toast.LENGTH_SHORT).show()
-                        is wsdydeni.library.android.base.DialogShowEffect -> {
+                        is DialogShowEffect -> {
                             if(!isFinishing && !isDestroyed) {
                                 baseHandler.post {
                                     if(!isFinishing && !isDestroyed) {
@@ -94,7 +94,7 @@ open class BaseActivity : AppCompatActivity {
                                 }
                             }
                         }
-                        is wsdydeni.library.android.base.DialogDismissEffect -> {
+                        is DialogDismissEffect -> {
                             loadingDialog?.let { dialog ->
                                 if(dialog.isShowing) {
                                     dialog.dismissNormally()
