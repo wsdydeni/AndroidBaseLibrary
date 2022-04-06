@@ -85,6 +85,7 @@ open class BaseActivity : AppCompatActivity {
                             Toast.makeText(this@BaseActivity, it.text, Toast.LENGTH_SHORT).show()
                         is DialogShowEffect -> {
                             if(!isFinishing && !isDestroyed) {
+                                // https://juejin.cn/post/7000976804634689573
                                 baseHandler.post {
                                     if(!isFinishing && !isDestroyed) {
                                         loadingDialog?.let { dialog ->

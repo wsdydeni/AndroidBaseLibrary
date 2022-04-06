@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import wsdydeni.library.android.utils.another.LogUtil
 import wsdydeni.library.android.utils.network.isNetworkAvailable
 import wsdydeni.library.android.view.LoadingDialog
+import wsdydeni.library.android.utils.lifecycle.launchAndRepeatWithViewLifecycle
 
 
 fun BaseActivity.createLoadingDialog(text: String = "加载中", isCanCancelByReturn: Boolean) {
