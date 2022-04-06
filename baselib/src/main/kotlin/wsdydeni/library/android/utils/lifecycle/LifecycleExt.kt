@@ -36,6 +36,13 @@ inline fun Fragment.launchAndRepeatWithViewLifecycle(
     }
 }
 
+inline fun Fragment.launchAndRepeatWithViewLifecycle(
+    minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
+    crossinline block: suspend CoroutineScope.() -> Unit
+) {
+    launchAndRepeatWithViewLifecycle(Dispatchers.Main,minActiveState,block)
+}
+
 /**
  * 更加简洁的语法封装
  *
@@ -61,4 +68,11 @@ inline fun FragmentActivity.launchAndRepeatWithViewLifecycle(
             block()
         }
     }
+}
+
+inline fun FragmentActivity.launchAndRepeatWithViewLifecycle(
+    minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
+    crossinline block: suspend CoroutineScope.() -> Unit
+) {
+    launchAndRepeatWithViewLifecycle(Dispatchers.Main,minActiveState,block)
 }
