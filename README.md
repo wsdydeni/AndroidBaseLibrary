@@ -35,7 +35,7 @@ TODO
 
 [封装使用](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/immersion/ImmersionStatusBarExt.kt)
 
-### 导航栏与弹窗
+### 导航栏
 
 [Android 系统 Bar 沉浸式完美兼容方案](https://juejin.cn/post/7075578574362640421)
 
@@ -51,11 +51,19 @@ TODO
 
 今日头条Android屏幕适配方案&Smallest屏幕适配方案最佳实践
 
-## ViewBinding 扩展
+## ViewBindingExt
 
 [ViewBindingPropertyDelegate](https://github.com/androidbroadcast/ViewBindingPropertyDelegate)
 
 无反射、跟随生命周期的 ViewBinding 委托构建
+
+## 其他工具
+
+[LifecycleExt](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/lifecycle/LifecycleExt.kt)
+
+[RecyclerViewExt](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/view/RecyclerViewExt.kt)
+
+[SpannableExtensions](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/view/SpannableExtensions.kt)
 
 # How to
 
