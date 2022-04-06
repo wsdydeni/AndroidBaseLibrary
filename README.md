@@ -23,10 +23,6 @@
 
 [基类请求封装](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/base/BaseExt.kt)
 
-### 如何使用
-
-TODO
-
 ## 沉浸式
 
 ### 状态栏
