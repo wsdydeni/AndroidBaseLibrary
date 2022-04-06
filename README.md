@@ -10,6 +10,52 @@
 
 [MVI 架构 - 不做跟风党，LiveData，StateFlow，SharedFlow 使用场景对比](https://juejin.cn/post/7007602776502960165)
 
+## 弹窗请求
+
+### 封装过程
+
+[构建可返回取消请求的弹窗](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/view/LoadingDialog.kt)
+
+[请求阶段显示和关闭弹窗](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/request/BaseFlow.kt)
+
+[基类监听](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/base/BaseActivity.kt)
+[参考-有效治理 BadTokenException](https://juejin.cn/post/7000976804634689573)
+
+[基类请求封装](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/base/BaseExt.kt)
+
+### 如何使用
+
+TODO
+
+## 沉浸式
+
+### 状态栏
+
+[状态栏占位](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/res/layout/layout_statusbar_placeholder.xml)
+
+[封装使用](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/immersion/ImmersionStatusBarExt.kt)
+
+### 导航栏与弹窗
+
+[Android 系统 Bar 沉浸式完美兼容方案](https://juejin.cn/post/7075578574362640421)
+
+## 键盘高度适配
+
+[PopupWindow 方案](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/keyboard/KeyboardHeightProvider.kt)
+
+[扩展函数封装](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/keyboard/KeyboardExt.kt)
+
+## 屏幕适配
+
+[AutoDensity](https://github.com/Hbottle/AutoDensity)
+
+今日头条Android屏幕适配方案&Smallest屏幕适配方案最佳实践
+
+## ViewBinding 扩展
+
+[ViewBindingPropertyDelegate](https://github.com/androidbroadcast/ViewBindingPropertyDelegate)
+
+无反射、跟随生命周期的 ViewBinding 委托构建
 
 # How to
 
