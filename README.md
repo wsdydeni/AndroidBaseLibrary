@@ -79,6 +79,6 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.wsdydeni:AndroidBaseLibrary:1.1.1'
+    implementation 'com.github.wsdydeni:AndroidBaseLibrary:1.1.2'
 }
 ```
