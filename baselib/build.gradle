@@ -14,10 +14,11 @@ android {
     buildTypes {
         debug {
             buildConfigField("boolean","IS_DEBUG","true")
+            consumerProguardFiles 'consumer-rules.pro'
         }
         release {
             buildConfigField("boolean","IS_DEBUG","false")
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            consumerProguardFiles 'consumer-rules.pro'
         }
     }
 
