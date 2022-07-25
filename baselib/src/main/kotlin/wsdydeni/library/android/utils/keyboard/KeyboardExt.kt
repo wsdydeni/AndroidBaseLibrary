@@ -13,7 +13,7 @@ import wsdydeni.library.android.utils.immersion.getStatusBarHeight
 
 fun FragmentActivity.addKeyboardMonitor() {
     KeyboardHeightProvider(this,object : KeyboardHeightListener {
-        override fun onKeyboardHeightChanged(keyboardHeight: Int,keyboardOpen: Boolean, isLandscape: Boolean) {
+        override fun onKeyboardHeightChanged(keyboardHeight: Int, keyboardOpen: Boolean, isHorizontal: Boolean) {
             if(keyboardHeight > 1000) {
                 return
             }
@@ -44,6 +44,22 @@ fun FragmentActivity.addKeyboardMonitor() {
                     content.translationY = difference.toFloat()
                 }
             }
+        }
+    })
+}
+
+/**
+ * 键盘监听
+ *
+ * @param onKeyboardHeightChanged 监听键盘变化回调
+ *      keyboardHeight 键盘高度
+ *      keyboardOpen 键盘是否打开
+ *      isLandscape 是否为横屏
+ */
+fun FragmentActivity.addKeyboardMonitor(onKeyboardHeightChanged: (keyboardHeight: Int,keyboardOpen: Boolean, isHorizontal: Boolean) -> Unit) {
+    KeyboardHeightProvider(this,object : KeyboardHeightListener {
+        override fun onKeyboardHeightChanged(keyboardHeight: Int,keyboardOpen: Boolean, isHorizontal: Boolean) {
+            onKeyboardHeightChanged(keyboardHeight, keyboardOpen, isHorizontal)
         }
     })
 }

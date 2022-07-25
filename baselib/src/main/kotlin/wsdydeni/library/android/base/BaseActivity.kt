@@ -74,7 +74,7 @@ open class BaseActivity : AppCompatActivity {
      *
      * @param viewModel 基类ViewModel
      */
-    fun observerEffect(viewModel: wsdydeni.library.android.base.BaseViewModel) {
+    fun observerEffect(viewModel: BaseViewModel) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.effect.collect {
@@ -111,5 +111,10 @@ open class BaseActivity : AppCompatActivity {
 
     open fun initView() {}
     open fun initData() {}
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loadingDialog?.dismiss()
+    }
 
 }

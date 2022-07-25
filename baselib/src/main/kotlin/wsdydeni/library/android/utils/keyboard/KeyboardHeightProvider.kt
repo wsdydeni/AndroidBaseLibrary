@@ -3,7 +3,6 @@ package wsdydeni.library.android.utils.keyboard
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -31,10 +30,9 @@ class KeyboardHeightProvider(activity: FragmentActivity,listener: KeyboardHeight
         val popupView = LinearLayout(activity)
         popupView.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
-            val metrics = DisplayMetrics()
-            activity.windowManager.defaultDisplay.getMetrics(metrics)
-            val rect = Rect()
-            contentView.getWindowVisibleDisplayFrame(rect)
+            val metrics = activity.resources.displayMetrics
+            contentView.handler.sendEmptyMessageDelayed(4321,50)
+            val rect = Rect().apply { contentView.getWindowVisibleDisplayFrame(this) }
             var keyboardHeight: Int = metrics.heightPixels - (rect.bottom - rect.top)
             if (keyboardHeight < PixelUtil.dip2px(activity,200f)) {
                 keyboardHeight = 0
