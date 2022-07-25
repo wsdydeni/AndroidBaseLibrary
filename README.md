@@ -61,7 +61,7 @@
 
 [SpannableExtensions](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/view/SpannableExtensions.kt)
 
-# How to
+# How to Use
 
 To get a Git project into your build:
 
