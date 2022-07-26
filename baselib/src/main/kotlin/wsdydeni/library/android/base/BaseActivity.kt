@@ -15,7 +15,6 @@ import wsdydeni.library.android.utils.immersion.fitNavigationBar
 import wsdydeni.library.android.utils.immersion.immersionStatusBar
 import wsdydeni.library.android.utils.immersion.immersiveNavigationBar
 import wsdydeni.library.android.utils.immersion.setLightNavigationBar
-import wsdydeni.library.android.utils.keyboard.addKeyboardMonitor
 import wsdydeni.library.android.utils.lifecycle.repeatOnLifecycle
 import wsdydeni.library.android.view.LoadingDialog
 
@@ -32,19 +31,18 @@ open class BaseActivity : AppCompatActivity {
 
     private var lastClickTime: Long = 0L
 
-    open var openImmersion = true
+    open var immersionStatus = false
 
-    open var openKeyboardMonitor = false
+    open var immersiveNavigation = false
+
+    open var isLightSystemBar = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(openImmersion) {
-            immersionStatusBar(isShowSystemStatusBar = false, isLightStatusBar = true)
+        if(immersionStatus) immersionStatusBar(false, isLightSystemBar)
+        if(immersiveNavigation) {
             immersiveNavigationBar()
             fitNavigationBar(true)
-            setLightNavigationBar(true)
-        }
-        if(openKeyboardMonitor) {
-            addKeyboardMonitor()
+            setLightNavigationBar(isLightSystemBar)
         }
         super.onCreate(savedInstanceState)
         ActivityInfo.SCREEN_ORIENTATION_PORTRAIT.also { requestedOrientation = it }
@@ -114,7 +112,9 @@ open class BaseActivity : AppCompatActivity {
 
     override fun onDestroy() {
         super.onDestroy()
-        loadingDialog?.dismiss()
+        loadingDialog?.let {
+            if(it.isShowing) it.dismiss()
+        }
     }
 
 }
