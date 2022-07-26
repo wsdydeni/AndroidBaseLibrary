@@ -26,6 +26,8 @@
             android:layout_height="wrap_content"/>
 
         <LinearLayout
+            android:id="@+id/input_layout"
+            android:background="@color/color_ffd4d4d4"
             app:layout_constraintBottom_toBottomOf="parent"
             android:orientation="horizontal"
             android:layout_width="match_parent"
