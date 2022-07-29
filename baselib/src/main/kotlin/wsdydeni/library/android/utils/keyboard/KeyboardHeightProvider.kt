@@ -1,5 +1,6 @@
 package wsdydeni.library.android.utils.keyboard
 
+import android.app.Activity
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
@@ -9,12 +10,13 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.LinearLayout
+import android.view.LayoutInflater
 import android.widget.PopupWindow
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import wsdydeni.library.android.R
 import wsdydeni.library.android.utils.another.LogUtil
 import wsdydeni.library.android.utils.display.PixelUtil
 
@@ -27,8 +29,8 @@ class KeyboardHeightProvider(activity: FragmentActivity,listener: KeyboardHeight
     private var recordHeight = 0
 
     init {
-        val popupView = LinearLayout(activity)
-        popupView.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        val inflater = activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.keyboard_popup_window, null, false)
         val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
             val metrics = activity.resources.displayMetrics
             contentView.handler.sendEmptyMessageDelayed(4321,50)
@@ -60,7 +62,6 @@ class KeyboardHeightProvider(activity: FragmentActivity,listener: KeyboardHeight
             activity.window.decorView.setOnApplyWindowInsetsListener(null)
             listener.onKeyboardHeightChanged(keyboardHeight, keyboardOpen, isLandscape)
         }
-        popupView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)
         contentView = popupView
         softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
         inputMethodMode = INPUT_METHOD_NEEDED
@@ -71,9 +72,18 @@ class KeyboardHeightProvider(activity: FragmentActivity,listener: KeyboardHeight
         content.post { showAtLocation(content, Gravity.NO_GRAVITY, 0, 0) }
         activity.lifecycle.addObserver(object : LifecycleEventObserver {
             override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                if(event == Lifecycle.Event.ON_DESTROY) {
-                    contentView.viewTreeObserver.removeOnGlobalLayoutListener(onGlobalLayoutListener)
-                    dismiss()
+                when(event) {
+                    Lifecycle.Event.ON_RESUME -> {
+                        contentView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)
+                    }
+                    Lifecycle.Event.ON_PAUSE -> {
+                        contentView.viewTreeObserver.removeOnGlobalLayoutListener(onGlobalLayoutListener)
+                    }
+                    Lifecycle.Event.ON_DESTROY -> {
+                        contentView.viewTreeObserver.removeOnGlobalLayoutListener(onGlobalLayoutListener)
+                        dismiss()
+                    }
+                    else -> {}
                 }
             }
         })
