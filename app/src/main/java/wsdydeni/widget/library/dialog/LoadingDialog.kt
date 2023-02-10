@@ -1,4 +1,4 @@
-package wsdydeni.library.android.view
+package wsdydeni.widget.library.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -6,8 +6,8 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
 import kotlinx.coroutines.Job
-import wsdydeni.library.android.R
-import wsdydeni.library.android.databinding.DialogLoadingBinding
+import wsdydeni.widget.library.R
+import wsdydeni.widget.library.databinding.DialogLoadingBinding
 
 
 class LoadingDialog(context: Context) : Dialog(context, R.style.TransparentDialog) {

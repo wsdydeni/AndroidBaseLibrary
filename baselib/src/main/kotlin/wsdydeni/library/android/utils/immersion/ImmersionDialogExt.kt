@@ -63,7 +63,6 @@ fun Dialog.immersion() {
     window?.let {
         it.setGravity(Gravity.CENTER)
         it.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-        it.setWindowAnimations(R.style.PopWindowAnimStyle)
     }
     immersiveStatusBar()
     immersiveNavigationBar()

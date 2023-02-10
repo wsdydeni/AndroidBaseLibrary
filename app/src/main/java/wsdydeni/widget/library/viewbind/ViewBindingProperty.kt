@@ -1,4 +1,4 @@
-package wsdydeni.library.android.utils.viewbind
+package wsdydeni.widget.library.viewbind
 
 import android.os.Handler
 import android.os.Looper
@@ -29,7 +29,7 @@ interface ViewBindingProperty<in R : Any, out T : ViewBinding> : ReadOnlyPropert
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 open class LazyViewBindingProperty<in R : Any, out T : ViewBinding>(protected val viewBinder: (R) -> T) :
-    ViewBindingProperty<R, T> {
+  ViewBindingProperty<R, T> {
 
     private var viewBinding: Any? = null
 
@@ -53,7 +53,7 @@ open class LazyViewBindingProperty<in R : Any, out T : ViewBinding>(protected va
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 abstract class LifecycleViewBindingProperty<in R : Any, out T : ViewBinding>(private val viewBinder: (R) -> T) :
-    ViewBindingProperty<R, T> {
+  ViewBindingProperty<R, T> {
 
     private var viewBinding: T? = null
 

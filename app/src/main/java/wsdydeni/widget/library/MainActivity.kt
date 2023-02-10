@@ -1,10 +1,13 @@
 package wsdydeni.widget.library
 
+import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
 import wsdydeni.library.android.base.BaseActivity
+import wsdydeni.library.android.base.BaseViewModel
 import wsdydeni.library.android.utils.another.LogUtil
 import wsdydeni.library.android.utils.density.AutoDensity
 import wsdydeni.library.android.utils.display.PixelUtil
@@ -14,6 +17,8 @@ import wsdydeni.library.android.utils.immersion.showStatusBarView
 import wsdydeni.library.android.utils.keyboard.addKeyboardMonitor
 
 class MainActivity : BaseActivity(R.layout.activity_main) {
+
+    private var lastClickTime: Long = 0L
 
     override var isLightSystemBar = true
 
@@ -27,8 +32,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 return@addKeyboardMonitor
             }
             if(keyboardHeight == 0) {
-                val inputLayout = findViewById<LinearLayout>(R.id.input_layout) as LinearLayout
-//                val content = findViewById<View>(android.R.id.content) as ViewGroup
+                val inputLayout = findViewById<LinearLayout>(R.id.input_layout)
                 inputLayout.translationY = 0f
                 return@addKeyboardMonitor
             }
@@ -50,15 +54,28 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                     val difference = (generalHeight + getStatusBarHeight()) - (focusBottom + keyboardHeight)
                     LogUtil.d("布局纵向偏移量: $difference")
                     LogUtil.d("偏移量dp: ${PixelUtil.px2dp(this,difference)}")
-                    val inputLayout = findViewById<LinearLayout>(R.id.input_layout) as LinearLayout
-//                    val content = findViewById<View>(android.R.id.content) as ViewGroup
+                    val inputLayout = findViewById<LinearLayout>(R.id.input_layout)
                     inputLayout.translationY = difference.toFloat()
                 }
             }
         }
-        showStatusBarView(
-            findViewById(wsdydeni.library.android.R.id.fillStatusBarView),
-            ContextCompat.getColor(this, wsdydeni.library.android.R.color.color_6d7174)
-        )
+        showStatusBarView(findViewById(R.id.fillStatusBarView), ContextCompat.getColor(this, R.color.color_6d7174))
+    }
+
+    /**
+     * 防止多次点击
+     */
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if(ev?.action == MotionEvent.ACTION_DOWN) {
+            if(System.currentTimeMillis() - lastClickTime < 500L) {
+                return true
+            }
+            lastClickTime = System.currentTimeMillis()
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    private fun observeEffect(viewModel: BaseViewModel) {
+        Lifecycle.State.STARTED
     }
 }

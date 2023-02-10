@@ -4,20 +4,13 @@ import android.app.Activity
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.view.WindowInsets
-import android.view.WindowManager
-import android.view.LayoutInflater
+import android.view.*
 import android.widget.PopupWindow
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import wsdydeni.library.android.R
-import wsdydeni.library.android.utils.another.LogUtil
+import wsdydeni.library.android.utils.another.noOpDelegate
 import wsdydeni.library.android.utils.display.PixelUtil
 
 
@@ -51,7 +44,6 @@ class KeyboardHeightProvider(activity: FragmentActivity,listener: KeyboardHeight
                         insets.getInsets(WindowInsets.Type.navigationBars()).bottom.run {
                             keyboardHeight = insets.getInsets(WindowInsets.Type.ime()).bottom.minus(this)
                             recordHeight = keyboardHeight
-                            LogUtil.d("keyboardHeight 修正: $keyboardHeight")
                             insets
                         }
                     }
@@ -70,21 +62,18 @@ class KeyboardHeightProvider(activity: FragmentActivity,listener: KeyboardHeight
         setBackgroundDrawable(ColorDrawable(0))
         val content = activity.findViewById<View>(android.R.id.content) as ViewGroup
         content.post { showAtLocation(content, Gravity.NO_GRAVITY, 0, 0) }
-        activity.lifecycle.addObserver(object : LifecycleEventObserver {
-            override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                when(event) {
-                    Lifecycle.Event.ON_RESUME -> {
-                        contentView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)
-                    }
-                    Lifecycle.Event.ON_PAUSE -> {
-                        contentView.viewTreeObserver.removeOnGlobalLayoutListener(onGlobalLayoutListener)
-                    }
-                    Lifecycle.Event.ON_DESTROY -> {
-                        contentView.viewTreeObserver.removeOnGlobalLayoutListener(onGlobalLayoutListener)
-                        dismiss()
-                    }
-                    else -> {}
-                }
+        activity.lifecycle.addObserver(object : DefaultLifecycleObserver by noOpDelegate() {
+            override fun onResume(owner: LifecycleOwner) {
+                contentView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)
+            }
+
+            override fun onPause(owner: LifecycleOwner) {
+                contentView.viewTreeObserver.removeOnGlobalLayoutListener(onGlobalLayoutListener)
+            }
+
+            override fun onDestroy(owner: LifecycleOwner) {
+                contentView.viewTreeObserver.removeOnGlobalLayoutListener(onGlobalLayoutListener)
+                dismiss()
             }
         })
     }

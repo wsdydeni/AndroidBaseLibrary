@@ -1,16 +1,32 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.AndroidBaseLibrary" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="TransparentDialog">
+        <!--        是否有边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--        是否在悬浮Activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--        半透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--        无标题-->
+        <item name="windowNoTitle">true</item>
+        <!--        窗口背景透明-->
+        <item name="android:windowBackground">@drawable/drawable_transparent</item>
+        <!--        dimEnabled值为false，那弹出的对话框背景是亮的-->
+        <!--        dimEnabled值为true，搭配dimAmount属性使用，可以控制对话框背景的亮暗-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--        取值 0-1 可使用浮点数值：0.618 值越大背景越暗-->
+        <item name="android:backgroundDimAmount">0.9</item>
+    </style>
+
+    <!-- popup window 显示消失动画-->
+    <style name="PopWindowAnimStyle">
+        <item name="android:windowShowAnimation">@anim/dialog_enter</item>
+        <!-- 指定显示的动画xml  -->
+        <item name="android:windowHideAnimation">@anim/dialog_exit</item>
+        <!-- 指定消失的动画xml  -->
     </style>
 </resources>

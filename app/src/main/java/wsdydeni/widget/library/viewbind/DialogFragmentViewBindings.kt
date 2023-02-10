@@ -1,4 +1,4 @@
-package wsdydeni.library.android.utils.viewbind
+package wsdydeni.widget.library.viewbind
 
 import androidx.annotation.RestrictTo
 import androidx.fragment.app.DialogFragment
