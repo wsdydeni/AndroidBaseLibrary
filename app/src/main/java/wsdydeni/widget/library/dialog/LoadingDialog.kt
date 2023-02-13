@@ -8,21 +8,19 @@ import android.view.WindowManager
 import kotlinx.coroutines.Job
 import wsdydeni.widget.library.R
 import wsdydeni.widget.library.databinding.DialogLoadingBinding
+import java.lang.ref.WeakReference
 
+class LoadingDialog(context: Context,job: Job? = null) : Dialog(context, R.style.TransparentDialog) {
 
-class LoadingDialog(context: Context) : Dialog(context, R.style.TransparentDialog) {
+    private val jobRef by lazy {
+        WeakReference(job)
+    }
+
+    private fun getJob() : Job? {
+        return jobRef.get()
+    }
 
     private var dialogLoadingBinding: DialogLoadingBinding
-
-    private var isReturnExit = true
-
-    fun getIsReturnExit() : Boolean {
-        return isReturnExit
-    }
-
-    private fun setIsReturnExitToFalse() {
-        this.isReturnExit = false
-    }
 
     init {
         window?.let {
@@ -32,6 +30,9 @@ class LoadingDialog(context: Context) : Dialog(context, R.style.TransparentDialo
         }
         dialogLoadingBinding = DialogLoadingBinding.inflate(LayoutInflater.from(context))
         setContentView(dialogLoadingBinding.root)
+        setOnCancelListener {
+            getJob()?.cancel()
+        }
     }
 
     fun setLoadingText(title: String?) : LoadingDialog {
@@ -39,29 +40,27 @@ class LoadingDialog(context: Context) : Dialog(context, R.style.TransparentDialo
         return this
     }
 
-    inline fun setOnDismissCallBack(job: Job, crossinline onDismiss: () -> Unit) : LoadingDialog {
-        setOnDismissListener {
-            /**
-             * 非正常关闭 取消请求 回调[onDismiss]
-             */
-            if(getIsReturnExit()) {
-                job.cancel()
-                onDismiss()
-            }
-        }
-        return this
+    /**
+     * 弹窗显示时启动Job
+     */
+    override fun show() {
+        super.show()
+        getJob()?.start()
     }
 
     /**
-     * 请求成功正常关闭
+     * 是否在异常关闭时取消Job
      */
-    fun dismissNormally() {
-        setIsReturnExitToFalse()
+    fun dismissCancelJob(isCancel: Boolean) {
+        if(isCancel) getJob()?.cancel()
         super.dismiss()
     }
 
-    fun isCanCancelByReturn(isCan: Boolean) : LoadingDialog {
-        if(isCan) setCanceledOnTouchOutside(false) else setCancelable(false)
+    /**
+     * 是否可以从外部取消弹窗
+     */
+    fun isCanCancelByReturn(isReturnClose: Boolean) : LoadingDialog {
+        if(isReturnClose) setCanceledOnTouchOutside(false) else setCancelable(false)
         return this
     }
 

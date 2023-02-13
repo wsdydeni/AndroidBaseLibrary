@@ -4,10 +4,15 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import com.hjq.toast.ToastUtils
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import wsdydeni.library.android.base.BaseActivity
-import wsdydeni.library.android.base.BaseViewModel
+import wsdydeni.library.android.base.BaseActivityHandler
 import wsdydeni.library.android.utils.another.LogUtil
 import wsdydeni.library.android.utils.density.AutoDensity
 import wsdydeni.library.android.utils.display.PixelUtil
@@ -15,6 +20,12 @@ import wsdydeni.library.android.utils.immersion.getNavBarHeight
 import wsdydeni.library.android.utils.immersion.getStatusBarHeight
 import wsdydeni.library.android.utils.immersion.showStatusBarView
 import wsdydeni.library.android.utils.keyboard.addKeyboardMonitor
+import wsdydeni.library.android.utils.lifecycle.launchAndRepeatWithViewLifecycle
+import wsdydeni.library.android.utils.lifecycle.repeatOnLifecycle
+import wsdydeni.widget.library.base.DialogDismissEffect
+import wsdydeni.widget.library.base.DialogShowEffect
+import wsdydeni.widget.library.base.ToastShowEffect
+import wsdydeni.widget.library.dialog.LoadingDialog
 
 class MainActivity : BaseActivity(R.layout.activity_main) {
 
@@ -25,6 +36,10 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     override var immersiveNavigation = true
 
     override var immersionStatus = true
+
+    private var loadingDialog : LoadingDialog? = null
+
+    private val myHandler = BaseActivityHandlers(this)
 
     override fun initView() {
         addKeyboardMonitor { keyboardHeight, _, _ ->
@@ -60,6 +75,28 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
             }
         }
         showStatusBarView(findViewById(R.id.fillStatusBarView), ContextCompat.getColor(this, R.color.color_6d7174))
+
+        findViewById<TextView>(R.id.send_btn).setOnClickListener {
+            lifecycleScope.launch {
+                createLoadingDialog(job = mainViewModel.getArticle())
+                mainViewModel.setEffect { DialogShowEffect }
+            }
+        }
+    }
+
+    private fun createLoadingDialog(text: String = "加载中", isCanCancelByReturn: Boolean = true, job: Job? = null) {
+        this.loadingDialog = LoadingDialog(this,job)
+            .setLoadingText(text)
+            .isCanCancelByReturn(isCanCancelByReturn)
+    }
+
+    override fun initData() {
+        observeEffect()
+        launchAndRepeatWithViewLifecycle {
+            mainViewModel.articleList.collect {
+                mainViewModel.setEffect { ToastShowEffect("加载成功") }
+            }
+        }
     }
 
     /**
@@ -75,7 +112,40 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         return super.dispatchTouchEvent(ev)
     }
 
-    private fun observeEffect(viewModel: BaseViewModel) {
-        Lifecycle.State.STARTED
+    private val mainViewModel by lazy { MainViewModel() }
+
+    private fun observeEffect() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mainViewModel.effect.collect { effect ->
+                    when(effect) {
+                        is DialogShowEffect -> {
+                            if(!isDestroyed && !isFinishing) {
+                                myHandler.post {
+                                    if(!isDestroyed && !isFinishing) {
+                                        loadingDialog?.let {
+                                            if(!it.isShowing) it.show()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        is DialogDismissEffect -> {
+                            loadingDialog?.let { dialog ->
+                                dialog.dismissCancelJob(effect.isCancel)
+                                loadingDialog = null
+                            }
+                        }
+                        is ToastShowEffect -> {
+                            ToastUtils.show(effect.text)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    companion object {
+        class BaseActivityHandlers(activity: BaseActivity) : BaseActivityHandler(activity)
     }
 }

@@ -4,4 +4,6 @@ sealed class ViewModelEffect
 
 object DialogShowEffect : ViewModelEffect()
 
-object DialogDismissEffect : ViewModelEffect()
+class DialogDismissEffect(val isCancel: Boolean = false) : ViewModelEffect()
+
+class ToastShowEffect(val text: String) : ViewModelEffect()
