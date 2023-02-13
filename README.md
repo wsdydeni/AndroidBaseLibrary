@@ -10,24 +10,9 @@
 
 [MVI 架构 - 不做跟风党，LiveData，StateFlow，SharedFlow 使用场景对比](https://juejin.cn/post/7007602776502960165)
 
-## 弹窗请求
-
-### 封装过程
-
-[构建可返回取消请求的弹窗](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/view/LoadingDialog.kt)
-
-[请求阶段显示和关闭弹窗](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/request/BaseFlow.kt)
-
-[基类监听](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/base/BaseActivity.kt)
-[参考-有效治理 BadTokenException](https://juejin.cn/post/7000976804634689573)
-
-[基类请求封装](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/base/BaseExt.kt)
-
 ## 沉浸式
 
 ### 状态栏
-
-[状态栏占位](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/res/layout/layout_statusbar_placeholder.xml)
 
 [封装使用](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/immersion/ImmersionStatusBarExt.kt)
 
@@ -47,20 +32,6 @@
 
 今日头条Android屏幕适配方案&Smallest屏幕适配方案最佳实践
 
-## ViewBindingExt
-
-[ViewBindingPropertyDelegate](https://github.com/androidbroadcast/ViewBindingPropertyDelegate)
-
-无反射、跟随生命周期的 ViewBinding 委托构建
-
-## 其他工具
-
-[LifecycleExt](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/lifecycle/LifecycleExt.kt)
-
-[RecyclerViewExt](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/view/RecyclerViewExt.kt)
-
-[SpannableExtensions](https://github.com/wsdydeni/AndroidBaseLibrary/blob/master/baselib/src/main/kotlin/wsdydeni/library/android/utils/view/SpannableExtensions.kt)
-
 # How to Use
 
 To get a Git project into your build:
@@ -79,6 +50,6 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.wsdydeni:AndroidBaseLibrary:1.1.2'
+    implementation 'com.github.wsdydeni:AndroidBaseLibrary:1.2.0'
 }
 ```
