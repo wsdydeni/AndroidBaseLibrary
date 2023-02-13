@@ -32,6 +32,10 @@
 
 今日头条Android屏幕适配方案&Smallest屏幕适配方案最佳实践
 
+## 网络请求
+
+[AndroidBaseLibraryNetwork](https://github.com/wsdydeni/AndroidBaseLibraryNetwork/tree/master/baselib-network/src/main/java/wsdydeni/library/android_network/network)
+
 # How to Use
 
 To get a Git project into your build:
